@@ -3,8 +3,9 @@ from basket.models import Player
 from django.http import HttpResponse
 from basket.forms import PlayerForm
 from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
 
-
+@login_required(login_url='/auth/login')
 def index(request):
     data = {}
     data['saludar'] = 'Hola dsfs'
@@ -14,6 +15,7 @@ def index(request):
 
     template_name = 'player/list_player.html'
     return render(request, template_name, data)
+
 
 def TemplateAdd(request):
     template = 'add.html'
