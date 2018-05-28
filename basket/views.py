@@ -54,6 +54,11 @@ def TemplateAdd(request):
     template_name = 'add.html'
     return render(request, template_name, data)
 
+
+'''
+Team
+'''
+#ADD TEAM
 def TemplateAddTeam(request):
     template = 'addTeam.html'
     data = {}
@@ -63,14 +68,14 @@ def TemplateAddTeam(request):
         if data['form'].is_valid():
             # aca el formulario valido
             data['form'].save()
-            return redirect('player_list')
+            return redirect('TemplatelistTeam')
 
     else:
         data['form'] = TeamForm()
 
     template_name = 'addTeam.html'
     return render(request, template_name, data)
-
+#EDIT TEAM
 def EditTeam(request,id_team):
     team = Team.objects.get(code=id_team)
     if request.method == 'GET':
@@ -79,8 +84,23 @@ def EditTeam(request,id_team):
         form = TeamForm(request.POST,instance=team)
         if form.is_valid():
             form.save()
-        return redirect('../list')
+        return redirect('../listTeam')
     return render(request,'addTeam.html',{'form':form})
+#LIST TEAM
+def TemplateListTeam(request):
+    template = 'listTeam.html'
+    data = {}
+
+    # SELECT * FROM player
+    data['object_list'] = Team.objects.all()
+    return render(request, template, data)
+#DELETE TEAM
+def DeleteTeam(request,id_team):
+    team = Team.objects.get(code=id_team)
+
+    team.delete()
+    return redirect('../listTeam')
+    return render(request,'deleteTeam.html', {'team':team})
 
 def edit_player(request,id_player):
     player = Player.objects.get(id=id_player)
