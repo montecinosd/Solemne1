@@ -71,6 +71,17 @@ def TemplateAddTeam(request):
     template_name = 'addTeam.html'
     return render(request, template_name, data)
 
+def EditTeam(request,id_team):
+    team = Team.objects.get(code=id_team)
+    if request.method == 'GET':
+        form = TeamForm(instance=team)
+    else:
+        form = TeamForm(request.POST,instance=team)
+        if form.is_valid():
+            form.save()
+        return redirect('../list')
+    return render(request,'addTeam.html',{'form':form})
+
 def edit_player(request,id_player):
     player = Player.objects.get(id=id_player)
     if request.method == 'GET':
