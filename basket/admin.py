@@ -5,7 +5,7 @@ from django.utils.safestring import mark_safe
 
 @admin.register(Team)
 class TeamAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description', 'logo',)
+    list_display = ('name', 'description', 'logo','code',)
 
 
 @admin.register(Player)

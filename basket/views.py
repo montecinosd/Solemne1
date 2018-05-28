@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from basket.models import Player
+from basket.models import *
 from django.http import HttpResponse
-from basket.forms import PlayerForm
+from basket.forms import *
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -26,6 +26,16 @@ def index(request):
 
     template_name = 'player/list_player.html'
     return render(request, template_name, data)
+def teamindex(request):
+    data = {}
+
+    data['saludar'] = 'Hola dsfs'
+
+    # SELECT * FROM player
+    data['object_list'] = Team.objects.all()
+
+    template_name = 'player/list_player.html'
+    return render(request, template_name, data)
 def TemplateAdd(request):
     template = 'add.html'
     data = {}
@@ -44,6 +54,22 @@ def TemplateAdd(request):
     template_name = 'add.html'
     return render(request, template_name, data)
 
+def TemplateAddTeam(request):
+    template = 'addTeam.html'
+    data = {}
+    if request.method == "POST":
+        data['form'] = TeamForm(request.POST, request.FILES)
+
+        if data['form'].is_valid():
+            # aca el formulario valido
+            data['form'].save()
+            return redirect('player_list')
+
+    else:
+        data['form'] = TeamForm()
+
+    template_name = 'addTeam.html'
+    return render(request, template_name, data)
 
 def edit_player(request,id_player):
     player = Player.objects.get(id=id_player)
