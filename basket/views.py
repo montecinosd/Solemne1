@@ -7,7 +7,6 @@ from django.shortcuts import redirect
 
 def index(request):
     data = {}
-
     data['saludar'] = 'Hola dsfs'
 
     # SELECT * FROM player
@@ -16,8 +15,8 @@ def index(request):
     template_name = 'player/list_player.html'
     return render(request, template_name, data)
 
-def TemplateAgregar(request):
-    template = 'agregar.html'
+def TemplateAdd(request):
+    template = 'add.html'
     data = {}
     if request.method == "POST":
         data['form'] = PlayerForm(request.POST, request.FILES)
@@ -31,30 +30,30 @@ def TemplateAgregar(request):
     else:
         data['form'] = PlayerForm()
 
-    template_name = 'agregar.html'
+    template_name = 'add.html'
     return render(request, template_name, data)
 
 
-def editar_jugador(request,id_jugador):
-    jugador = Player.objects.get(id=id_jugador)
+def edit_player(request,id_player):
+    player = Player.objects.get(id=id_player)
     if request.method == 'GET':
-        form = PlayerForm(instance=jugador)
+        form = PlayerForm(instance=player)
     else:
-        form = PlayerForm(request.POST,instance=jugador)
+        form = PlayerForm(request.POST,instance=player)
         if form.is_valid():
             form.save()
-        return redirect('../listar')
-    return render(request,'agregar.html',{'form':form})
+        return redirect('../list')
+    return render(request,'add.html',{'form':form})
 
-def eliminar_jugador(request,id_jugador):
-    jugador = Player.objects.get(id=id_jugador)
+def delete_player(request,id_player):
+    player = Player.objects.get(id=id_player)
 
-    jugador.delete()
-    return redirect('../listar')
-    return render(request,'eliminar.html', {'jugador':jugador})
+    player.delete()
+    return redirect('../list')
+    return render(request,'delete.html', {'player':player})
 
-def Templatelistar(request):
-    template = 'listar.html'
+def TemplateList(request):
+    template = 'list.html'
     data = {}
 
     # SELECT * FROM player
