@@ -4,19 +4,28 @@ from django.http import HttpResponse
 from basket.forms import PlayerForm
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 @login_required(login_url='/auth/login')
 def index(request):
     data = {}
-    data['saludar'] = 'Hola dsfs'
 
     # SELECT * FROM player
-    data['object_list'] = Player.objects.all()
+    object_list = Player.objects.all().order_by('-id')
+
+    paginator = Paginator(object_list, 10)
+    page = request.GET.get('page')
+
+    try:
+        data['object_list'] = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        data['object_list'] = paginator.page(1)
+    except EmptyPage:
+        data['object_list'] = paginator.page(paginator.num_pages)
 
     template_name = 'player/list_player.html'
     return render(request, template_name, data)
-
-
 def TemplateAdd(request):
     template = 'add.html'
     data = {}
