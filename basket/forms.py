@@ -12,9 +12,8 @@ class PlayerForm(ModelForm):
         model = Player
         fields = ['rut', 'dv', 'name', 'nickname', 'birthday', 'age', 'email', 'height', 'weight', 'picture', 'position', 'team']
 
-'''
+
 class CoachForm(ModelForm):
-    class Coach:
+    class Meta:
         model = Coach
-        fields = ['name ','description','logo','code','name','age','email','nickname','rut','dv']
-'''
+        fields = ['name','age','email','nickname','rut','dv',]
