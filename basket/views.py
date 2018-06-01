@@ -24,9 +24,10 @@ def index(request):
     except EmptyPage:
         data['object_list'] = paginator.page(paginator.num_pages)
 
-    template_name = 'player/list_player.html'
+    template_name = '../Template/list.html'
     return render(request, template_name, data)
 
+@login_required(login_url='/auth/login')
 def TemplateAdd(request):
     template = 'add.html'
     data = {}
@@ -45,6 +46,7 @@ def TemplateAdd(request):
     template_name = 'add.html'
     return render(request, template_name, data)
 
+@login_required(login_url='/auth/login')
 def delete_player(request,id_player):
     player = Player.objects.get(id=id_player)
 
@@ -52,6 +54,7 @@ def delete_player(request,id_player):
     return redirect('../list')
     return render(request,'delete.html', {'player':player})
 
+@login_required(login_url='/auth/login')
 def edit_player(request,id_player):
     player = Player.objects.get(id=id_player)
     if request.method == 'GET':
@@ -63,7 +66,7 @@ def edit_player(request,id_player):
         return redirect('../list')
     return render(request,'add.html',{'form':form})
 
-
+@login_required(login_url='/auth/login')
 def TemplateList(request):
     template = 'list.html'
     data = {}
@@ -76,6 +79,7 @@ def TemplateList(request):
 Team
 '''
 #ADD TEAM
+@login_required(login_url='/auth/login')
 def TemplateAddTeam(request):
     template = 'addTeam.html'
     data = {}
@@ -93,6 +97,7 @@ def TemplateAddTeam(request):
     template_name = 'addTeam.html'
     return render(request, template_name, data)
 #EDIT TEAM
+@login_required(login_url='/auth/login')
 def EditTeam(request,id_team):
     team = Team.objects.get(code=id_team)
     if request.method == 'GET':
@@ -105,6 +110,7 @@ def EditTeam(request,id_team):
     return render(request,'addTeam.html',{'form':form})
 
 #LIST TEAM
+@login_required(login_url='/auth/login')
 def TemplateListTeam(request):
     template = 'listTeam.html'
     data = {}
@@ -113,13 +119,14 @@ def TemplateListTeam(request):
     data['object_list'] = Team.objects.all()
     return render(request, template, data)
 #DELETE TEAM
+@login_required(login_url='/auth/login')
 def DeleteTeam(request,id_team):
     team = Team.objects.get(code=id_team)
 
     team.delete()
     return redirect('../listTeam')
     return render(request,'deleteTeam.html', {'team':team})
-
+@login_required(login_url='/auth/login')
 def teamindex(request):
     data = {}
 
@@ -135,6 +142,7 @@ def teamindex(request):
 Coach
 '''
 #ADD COACH
+@login_required(login_url='/auth/login')
 def TemplateAddCoach(request):
     template = 'addCoach.html'
     data = {}
@@ -153,6 +161,7 @@ def TemplateAddCoach(request):
     return render(request, template_name, data)
 
 #
+@login_required(login_url='/auth/login')
 def TemplateListCoach(request):
     template = 'listCoach.html'
     data = {}
@@ -162,6 +171,7 @@ def TemplateListCoach(request):
     return render(request, template, data)
 
 #EDIT COACH
+@login_required(login_url='/auth/login')
 def EditCoach(request,id_coach):
     coach = Coach.objects.get(id=id_coach)
     if request.method == 'GET':
@@ -174,12 +184,40 @@ def EditCoach(request,id_coach):
     return render(request,'addCoach.html',{'form':form})
 
 #DELETE COACH
+@login_required(login_url='/auth/login')
 def DeleteCoach(request,id_coach):
     coach = Coach.objects.get(id=id_coach)
 
     coach.delete()
     return redirect('../listCoach')
     return render(request,'deleteCoach.html', {'team':team})
+'''
+Nomination
+'''
+def TemplateListNomination(request):
+    template = 'listNomination.html'
+    data = {}
+
+    # SELECT * FROM player
+    data['object_list'] = Nomination.objects.all()
+    return render(request, template, data)
+
+def TemplateAddNomination(request):
+    template = 'addNomination.html'
+    data = {}
+    if request.method == "POST":
+        data['form'] = NominationForm(request.POST, request.FILES)
+
+        if data['form'].is_valid():
+            # aca el formulario valido
+            data['form'].save()
+            return redirect('Templatelist')
+
+    else:
+        data['form'] = NominationForm()
+
+    template_name = 'addNomination.html'
+    return render(request, template_name, data)
 
 def detail(request, player_id):
 

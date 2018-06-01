@@ -43,13 +43,10 @@
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                      <th scope="col">Foto</th>
+                      <th scope="col">Code</th>
                       <th scope="col">Nombre</th>
-                      <th scope="col">Apellido</th>
-                      <th scope="col">Edad</th>
-                      <th scope="col">Posición</th>
-                      <th scope="col">Equipo</th>
-                      <th scope="col">Acción</th>
+                      <th scope="col">Descripcion</th>
+
                     </tr>
                   </thead>
                   <tbody>
@@ -57,11 +54,9 @@
 
                     <tr>
                       <th scope="row"></th>
-                      <td><img src="http://placehold.it/50x50" alt="" class="img-thumbnail"></td>
+                      <td>{{i.name}}</td>
                       <td>{{i.code}}</td>
                       <td>{{i.description}}</td>
-                      <td>{{i.logo}}</td>
-                      <td>{{i.code}}</td>
                       <td>
                         <div class="dropdown">
                           <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

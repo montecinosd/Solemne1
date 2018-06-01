@@ -32,6 +32,11 @@ class Player(models.Model):
 
     def __str__(self):
         return self.name
+class Nomination(models.Model):
+    name_Match = models.CharField(max_length=120)
+    date = models.DateField()
+    hour = models.TimeField()
+    player = models.ManyToManyField(Player)
 
 
 class Coach(models.Model):

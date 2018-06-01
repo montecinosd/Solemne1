@@ -12,11 +12,13 @@ urlpatterns = [
     path('add',views.TemplateAdd,name='add'),
     path('addTeam',views.TemplateAddTeam,name='addTeam'),
     path('addCoach',views.TemplateAddCoach,name='addCoach'),
+    path('addNomination',views.TemplateAddNomination,name='addNomination'),
 
 #LIST WITH OPTIONS
     path('list',views.TemplateList,name='Templatelist'),
     path('listTeam',views.TemplateListTeam,name='TemplatelistTeam'),
     path('listCoach',views.TemplateListCoach,name='TemplatelistCoach'),
+    path('listNomination',views.TemplateListNomination,name='TemplateListNomination'),
 #EDIT
     path('edit/<int:id_player>',views.edit_player,name='edit_player'),
     path('editTeam/<int:id_team>',views.EditTeam,name='EditTeam'),
