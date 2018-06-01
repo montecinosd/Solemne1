@@ -194,6 +194,8 @@ def DeleteCoach(request,id_coach):
 '''
 Nomination
 '''
+
+#PUBLICA PARA QUE LOS JUGADORS PUEDAN VERLA
 def TemplateListNomination(request):
     template = 'listNomination.html'
     data = {}
@@ -206,7 +208,8 @@ def TemplateAddNomination(request):
     template = 'addNomination.html'
     data = {}
     if request.method == "POST":
-        data['form'] = NominationForm(request.POST, request.FILES)
+        nomination = NominationForm(request.POST, request.FILES)
+        data['form'] = nomination
 
         if data['form'].is_valid():
             # aca el formulario valido
@@ -214,6 +217,7 @@ def TemplateAddNomination(request):
             return redirect('Templatelist')
 
     else:
+        nomination =NominationForm()
         data['form'] = NominationForm()
 
     template_name = 'addNomination.html'

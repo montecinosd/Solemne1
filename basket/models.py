@@ -1,5 +1,7 @@
 from django.db import models
 from basket.defines import POSITION_PLAYER_CHOICES
+from django.contrib.auth.models import User
+from datetime import date
 
 
 class Team(models.Model):
@@ -32,21 +34,22 @@ class Player(models.Model):
 
     def __str__(self):
         return self.name
-class Nomination(models.Model):
-    name_Match = models.CharField(max_length=120)
-    date = models.DateField()
-    hour = models.TimeField()
-    player = models.ManyToManyField(Player)
-
 
 class Coach(models.Model):
     name = models.CharField(max_length=120)
     age = models.PositiveIntegerField()
     email = models.EmailField()
     nickname = models.CharField(max_length=120)
+    user = models.OneToOneField(User, on_delete=models.CASCADE,blank=True, null=True)
 
     rut = models.CharField(max_length=8)
     dv = models.PositiveIntegerField()
 
     def __str__(self):
         return self.name
+
+class Nomination(models.Model):
+    name_Match = models.CharField(max_length=120)
+    date = models.DateField()
+    hour = models.TimeField()
+    player = models.ForeignKey(Player,on_delete=models.CASCADE,blank=True, null=True)
