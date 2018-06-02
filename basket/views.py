@@ -242,6 +242,18 @@ def TemplateListNomination(request):
 
     # SELECT * FROM player
     data['object_list'] = Nomination.objects.all()
+
+    #MOSTRAR STR LOS JUGADORES
+    # aux_str= ''
+    # for i in data['object_list']:
+    #     a = i.player.all()
+    #     a = list(a)
+    #
+    #     print (type(a))
+    #     print (a)
+    #     for x in a:
+    #         print(list(a))
+
     return render(request, template, data)
 
 @login_required(login_url='/auth/loginCoach')

@@ -20,4 +20,4 @@ class PlayerAdmin(admin.ModelAdmin):
             % (obj.picture.url))
 @admin.register(Nomination)
 class NominationAdmin(admin.ModelAdmin):
-    list_display = ('name_Match','date','hour','player', )
+    list_display = ('name_Match','date','hour', )

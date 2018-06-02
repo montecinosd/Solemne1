@@ -52,4 +52,4 @@ class Nomination(models.Model):
     name_Match = models.CharField(max_length=120)
     date = models.DateField()
     hour = models.TimeField()
-    player = models.ForeignKey(Player,on_delete=models.CASCADE,blank=True, null=True)
+    player = models.ManyToManyField(Player)
