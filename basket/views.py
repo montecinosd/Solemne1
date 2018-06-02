@@ -244,7 +244,7 @@ def TemplateListNomination(request):
     data['object_list'] = Nomination.objects.all()
     return render(request, template, data)
 
-@login_required(login_url='/auth/login')
+@login_required(login_url='/auth/loginCoach')
 def TemplateAddNomination(request):
     template = 'addNomination.html'
     data = {}

@@ -23,7 +23,7 @@ def auth_login(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return HttpResponseRedirect(reverse('addNomination'))
+                return HttpResponseRedirect(reverse('Templatelist'))
             else:
                 print("usuario o contraseña no validos")
                 messages.warning(
@@ -38,6 +38,38 @@ def auth_login(request):
             )
     return render(request, template_name, data)
 
+def auth_loginCoach(request):
+    template_name = 'login.html'
+    data = {}
+
+    logout(request)
+    username = password = ''
+
+    if request.POST:
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(
+            username=username,
+            password=password
+        )
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect(reverse('addNomination'))
+            else:
+                print("usuario o contraseña no validos")
+                messages.warning(
+                    request,
+                    'Usuario o contraseña incorrectos!'
+                )
+        else:
+            print("Usuario incorrecto")
+            messages.error(
+                request,
+                'Usuario o contraseña incorrectos!'
+            )
+    return render(request, template_name, data)
 
 def auth_logout(request):
     logout(request)
