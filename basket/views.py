@@ -13,7 +13,7 @@ def index(request):
     # SELECT * FROM player
     object_list = Player.objects.all().order_by('-id')
 
-    paginator = Paginator(object_list, 10)
+    paginator = Paginator(object_list, 5)
     page = request.GET.get('page')
 
     try:
@@ -70,9 +70,19 @@ def edit_player(request,id_player):
 def TemplateList(request):
     template = 'list.html'
     data = {}
+    object_list = Player.objects.all().order_by('-id')
 
-    # SELECT * FROM player
-    data['object_list'] = Player.objects.all()
+    paginator = Paginator(object_list, 5)
+    page = request.GET.get('page')
+
+    try:
+        data['object_list'] = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        data['object_list'] = paginator.page(1)
+    except EmptyPage:
+        data['object_list'] = paginator.page(paginator.num_pages)
+
     return render(request, template, data)
 
 '''
@@ -114,9 +124,19 @@ def EditTeam(request,id_team):
 def TemplateListTeam(request):
     template = 'listTeam.html'
     data = {}
+    object_list = Team.objects.all().order_by('-code')
 
-    # SELECT * FROM player
-    data['object_list'] = Team.objects.all()
+    paginator = Paginator(object_list, 5)
+    page = request.GET.get('page')
+
+    try:
+        data['object_list'] = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        data['object_list'] = paginator.page(1)
+    except EmptyPage:
+        data['object_list'] = paginator.page(paginator.num_pages)
+
     return render(request, template, data)
 #DELETE TEAM
 @login_required(login_url='/auth/login')
@@ -165,9 +185,19 @@ def TemplateAddCoach(request):
 def TemplateListCoach(request):
     template = 'listCoach.html'
     data = {}
+    object_list = Coach.objects.all().order_by('-id')
 
-    # SELECT * FROM player
-    data['object_list'] = Coach.objects.all()
+    paginator = Paginator(object_list, 5)
+    page = request.GET.get('page')
+
+    try:
+        data['object_list'] = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        data['object_list'] = paginator.page(1)
+    except EmptyPage:
+        data['object_list'] = paginator.page(paginator.num_pages)
+
     return render(request, template, data)
 
 #EDIT COACH
@@ -204,6 +234,7 @@ def TemplateListNomination(request):
     data['object_list'] = Nomination.objects.all()
     return render(request, template, data)
 
+@login_required(login_url='/auth/login')
 def TemplateAddNomination(request):
     template = 'addNomination.html'
     data = {}
