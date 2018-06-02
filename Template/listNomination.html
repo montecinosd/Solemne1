@@ -62,17 +62,6 @@
                       <td>{{i.date}}</td>
                       <td>{{i.hour}}</td>
                       <td>{{i.player}}</td>
-                      <td>
-                        <div class="dropdown">
-                          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Manager
-                          </button>
-                          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                            //<button class="dropdown-item" type="button"><a href="{% url 'EditCoach' i.id %}">Editar</a></button>
-                            //<button class="dropdown-item" type="button"><a href="{% url 'DeleteCoach' i.id %}">Eliminar</a></button>
-                          </div>
-                        </div>
-                      </td>
                     </tr>
                     {% endfor %}
                   </tbody>

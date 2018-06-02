@@ -6,7 +6,6 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-@login_required(login_url='/auth/login')
 def index(request):
     data = {}
 
@@ -168,14 +167,25 @@ def TemplateAddCoach(request):
     data = {}
     if request.method == "POST":
         data['form'] = CoachForm(request.POST, request.FILES)
+        data['form2'] = CreateCoachUserForm(request.POST, request.FILES)
 
+        if data['form2'].is_valid():
+            # aca el formulario valido
+            aux = User.objects.create_user(username=request.POST["username"],
+                            password= request.POST["password1"])
+            aux.save()
         if data['form'].is_valid():
             # aca el formulario valido
-            data['form'].save()
+            form = data['form'].save(commit=False)
+            form= data['form'].save(commit=False)
+            form.user = aux
+            form.save()
             return redirect('TemplatelistCoach')
+
 
     else:
         data['form'] = CoachForm()
+        data['form2'] = CreateCoachUserForm()
 
     template_name = 'addCoach.html'
     return render(request, template_name, data)

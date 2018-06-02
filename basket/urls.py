@@ -3,7 +3,7 @@ from basket import views
 
 
 urlpatterns = [
-    path('', views.index, name="player"),
+    path('', views.TemplateListNomination, name="player"),
     path('view/<int:player_id>', views.detail, name="player_detail"),
 #LIST
     path('testlist', views.index, name="player_list"),

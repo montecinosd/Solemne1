@@ -1,7 +1,8 @@
 from django.forms import ModelForm
 from basket.models import Player, Team, Coach, Nomination
 from django import forms
-
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 class TeamForm(ModelForm):
     class Meta:
@@ -19,6 +20,15 @@ class CoachForm(ModelForm):
         model = Coach
         fields = ['name','age','email','nickname','rut','dv',]
 #
+
+class CreateCoachUserForm(ModelForm):
+
+    password1 = forms.CharField(label='Enter password', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)
+    class Meta:
+        model = User
+        fields = ('username','password1', 'password2', )
+
 # class NominationForm(ModelForm):
 #     class Meta:
 #         model = Nomination
