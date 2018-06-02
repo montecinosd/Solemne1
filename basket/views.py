@@ -252,7 +252,7 @@ def TemplateListNomination(request):
     #     print (type(a))
     #     print (a)
     #     for x in a:
-    #         print(list(a))
+    #         print(x[0])
 
     return render(request, template, data)
 
