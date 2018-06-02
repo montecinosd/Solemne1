@@ -267,7 +267,7 @@ def TemplateAddNomination(request):
         if data['form'].is_valid():
             # aca el formulario valido
             data['form'].save()
-            return redirect('Templatelist')
+            return redirect('TemplateListNomination')
 
     else:
         nomination =NominationForm()
